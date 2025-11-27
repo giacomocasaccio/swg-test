@@ -48,7 +48,7 @@
             background: white;
             border: 1px solid #E5E7EB;
             border-radius: 16px;
-            padding: 1.25rem; 
+            padding: 1.5rem; /* Ridotto padding per renderlo più compatto */
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             height: 100%;
             position: relative;
@@ -70,8 +70,13 @@
         }
         .bento-card:hover .google-card-bg { opacity: 1; }
         
-        .icon-float { transition: transform 0.3s ease; }
-        .bento-card:hover .icon-float { transform: scale(1.1) rotate(5deg); }
+        /* Improved Icons Style */
+        .icon-float { 
+            transition: transform 0.3s ease, box-shadow 0.3s ease; 
+        }
+        .bento-card:hover .icon-float { 
+            transform: scale(1.15) rotate(5deg); 
+        }
 
         /* Bottoni */
         .btn-primary {
@@ -331,7 +336,7 @@
         </div>
     </section>
 
-    <!-- SEZIONE "PERCHÉ ESISTE SIWEGO" (Ridimensionata & Riorganizzata) -->
+    <!-- SEZIONE "PERCHÉ ESISTE SIWEGO" (Ridimensionata & Icone Grandi) -->
     <section class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
@@ -339,55 +344,60 @@
                 <p class="text-lg text-gray-600">I numeri parlano chiaro. Risolviamo i problemi della logistica moderna.</p>
             </div>
 
-            <!-- Bento Grid Layout - 3 Card Principali "Problem -> Solution" -->
+            <!-- Bento Grid Layout -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 
-                <!-- Card 1: Inefficienza -->
-                <div class="bento-card bg-gray-50 group cursor-pointer">
-                    <div class="flex justify-between items-start mb-4">
-                        <div class="icon-circle bg-white text-brand-blue shadow-sm">
-                            <i class="fas fa-chart-pie"></i>
+                <!-- Card 1: Inefficienza (Icona Ingrandita) -->
+                <div class="bento-card bg-gray-50 group cursor-pointer border hover:border-brand-blue">
+                    <div class="google-card-bg"></div>
+                    <div class="relative z-10 flex flex-col justify-between h-full">
+                        <div class="flex justify-between items-start">
+                            <!-- Icona Ingrandita -->
+                            <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center text-brand-blue shadow-md icon-float shadow-blue-100">
+                                <i class="fas fa-chart-pie text-3xl"></i>
+                            </div>
+                            <div class="text-5xl font-extrabold text-brand-blue tracking-tight group-hover:scale-110 transition-transform">25%</div>
                         </div>
-                        <div class="stat-number text-4xl font-extrabold">25%</div>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Spreco di Spazio</h3>
-                    <p class="text-sm text-gray-600">Dei mezzi di trasporto viaggia vuoto. Oltre 1.1 Milioni di veicoli generano traffico senza trasportare nulla.</p>
-                    
-                    <!-- Hidden Detail -->
-                    <div class="hover-reveal bg-white p-3 rounded-lg mt-4 text-xs text-gray-500 border border-gray-100 shadow-sm">
-                        <i class="fas fa-arrow-right text-brand-blue mr-1"></i> SiWeGO riempie questi spazi vuoti.
+                        <div class="mt-6">
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">Spreco di Spazio</h3>
+                            <p class="text-sm text-gray-600">Dei mezzi di trasporto viaggia vuoto. Oltre 1.1 Milioni di veicoli generano traffico senza trasportare nulla.</p>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Card 2: Ambiente -->
-                <div class="bento-card bg-lime-50 border-brand-lime/20 group cursor-pointer">
-                    <div class="flex justify-between items-start mb-4">
-                        <div class="icon-circle bg-brand-lime text-white shadow-sm">
-                            <i class="fas fa-leaf"></i>
+                <!-- Card 2: Ambiente (Icona Ingrandita) -->
+                <div class="bento-card bg-lime-50 border border-brand-lime/20 hover:border-brand-lime group cursor-pointer">
+                    <div class="google-card-bg bg-gradient-to-b from-white to-transparent"></div>
+                    <div class="relative z-10 flex flex-col justify-between h-full">
+                        <div class="flex justify-between items-start">
+                             <!-- Icona Ingrandita -->
+                            <div class="w-16 h-16 bg-brand-lime rounded-full flex items-center justify-center text-white shadow-md icon-float shadow-lime-200">
+                                <i class="fas fa-leaf text-3xl"></i>
+                            </div>
+                            <div class="text-4xl font-extrabold text-brand-lime tracking-tight group-hover:scale-110 transition-transform">1.5 Mld</div>
                         </div>
-                        <div class="stat-number text-4xl font-extrabold text-brand-lime">1.5 Mld</div>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Impatto Ambientale</h3>
-                    <p class="text-sm text-gray-600">Litri di carburante bruciati inutilmente ogni anno, generando enormi quantità di CO2.</p>
-                    
-                    <div class="hover-reveal bg-white p-3 rounded-lg mt-4 text-xs text-gray-500 border border-gray-100 shadow-sm">
-                        <i class="fas fa-arrow-right text-brand-lime mr-1"></i> Meno veicoli dedicati = Meno emissioni.
+                        <div class="mt-6">
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">Impatto Ambientale</h3>
+                            <p class="text-sm text-gray-600">Litri di carburante bruciati inutilmente ogni anno, generando enormi quantità di CO2.</p>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Card 3: Società -->
-                <div class="bento-card bg-blue-50 border-brand-blue/20 group cursor-pointer">
-                    <div class="flex justify-between items-start mb-4">
-                        <div class="icon-circle bg-brand-blue text-white shadow-sm">
-                            <i class="fas fa-car-crash"></i>
+                <!-- Card 3: Società (Icona Ingrandita) -->
+                <div class="bento-card bg-blue-50 border border-brand-blue/20 hover:border-brand-blue group cursor-pointer">
+                    <div class="google-card-bg bg-gradient-to-b from-white to-transparent"></div>
+                    <div class="relative z-10 flex flex-col justify-between h-full">
+                        <div class="flex justify-between items-start">
+                             <!-- Icona Ingrandita -->
+                            <div class="w-16 h-16 bg-brand-blue rounded-full flex items-center justify-center text-white shadow-md icon-float shadow-blue-200">
+                                <i class="fas fa-car-crash text-3xl"></i>
+                            </div>
+                            <div class="text-4xl font-extrabold text-brand-blue tracking-tight group-hover:scale-110 transition-transform">10k Km</div>
                         </div>
-                        <div class="stat-number text-4xl font-extrabold text-brand-blue">10k Km</div>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Traffico & Rischi</h3>
-                    <p class="text-sm text-gray-600">Di coda generata da veicoli vuoti. Più auto significano più traffico e più incidenti stradali.</p>
-                    
-                    <div class="hover-reveal bg-white p-3 rounded-lg mt-4 text-xs text-gray-500 border border-gray-100 shadow-sm">
-                        <i class="fas fa-arrow-right text-brand-blue mr-1"></i> Ottimizzare riduce il rischio per tutti.
+                        <div class="mt-6">
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">Traffico & Rischi</h3>
+                            <p class="text-sm text-gray-600">Di coda generata da veicoli vuoti. Più auto significano più traffico e più incidenti stradali.</p>
+                        </div>
                     </div>
                 </div>
 
@@ -395,7 +405,7 @@
         </div>
     </section>
 
-    <!-- FAQ Section (Compatta & Pulita) -->
+    <!-- FAQ Section (Nuove Aggiunte) -->
     <section class="py-20 bg-gray-50" id="faq">
         <div class="max-w-3xl mx-auto px-4">
             <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Domande Frequenti</h2>
@@ -413,6 +423,16 @@
 
                 <details class="group bg-white rounded-lg border border-gray-200 overflow-hidden">
                     <summary class="flex justify-between items-center p-4 cursor-pointer font-medium text-gray-900 hover:bg-gray-50 transition select-none">
+                        È legale trasportare merci per conto terzi?
+                        <span class="text-gray-400 transition-transform group-open:rotate-180"><i class="fas fa-chevron-down"></i></span>
+                    </summary>
+                    <div class="px-4 pb-4 text-gray-600 text-sm leading-relaxed border-t border-gray-100 pt-3">
+                        Assolutamente sì, se fatto in modalità "sharing economy". Non stai facendo il corriere per professione, ma stai condividendo un viaggio che avresti comunque fatto, ricevendo un contributo spese. Questo rientra nella piena legalità della sharing economy italiana.
+                    </div>
+                </details>
+
+                <details class="group bg-white rounded-lg border border-gray-200 overflow-hidden">
+                    <summary class="flex justify-between items-center p-4 cursor-pointer font-medium text-gray-900 hover:bg-gray-50 transition select-none">
                         Come garantite la sicurezza del mio pacco?
                         <span class="text-gray-400 transition-transform group-open:rotate-180"><i class="fas fa-chevron-down"></i></span>
                     </summary>
@@ -421,13 +441,23 @@
                     </div>
                 </details>
 
-                <details class="group bg-white rounded-lg border border-gray-200 overflow-hidden">
+                 <details class="group bg-white rounded-lg border border-gray-200 overflow-hidden">
                     <summary class="flex justify-between items-center p-4 cursor-pointer font-medium text-gray-900 hover:bg-gray-50 transition select-none">
-                        Cosa posso spedire con SiWeGO?
+                        Posso annullare una richiesta o un'offerta?
                         <span class="text-gray-400 transition-transform group-open:rotate-180"><i class="fas fa-chevron-down"></i></span>
                     </summary>
                     <div class="px-4 pb-4 text-gray-600 text-sm leading-relaxed border-t border-gray-100 pt-3">
-                        Pacchi, buste, oggetti ingombranti, attrezzature sportive e persino piccoli traslochi. L'importante è che il driver abbia spazio nel veicolo. Sono vietati oggetti illegali o pericolosi.
+                        Sì, puoi annullare il trasporto prima che inizi. Se l'annullamento avviene con sufficiente anticipo non ci sono penali. Controlla i termini e condizioni per le politiche di cancellazione specifiche dell'ultimo minuto.
+                    </div>
+                </details>
+
+                <details class="group bg-white rounded-lg border border-gray-200 overflow-hidden">
+                    <summary class="flex justify-between items-center p-4 cursor-pointer font-medium text-gray-900 hover:bg-gray-50 transition select-none">
+                        Chi emette la ricevuta?
+                        <span class="text-gray-400 transition-transform group-open:rotate-180"><i class="fas fa-chevron-down"></i></span>
+                    </summary>
+                    <div class="px-4 pb-4 text-gray-600 text-sm leading-relaxed border-t border-gray-100 pt-3">
+                        SiWeGO emette una ricevuta per la commissione del servizio. Per quanto riguarda il rimborso spese tra privati, non essendo una prestazione professionale, non è prevista fattura ma una semplice ricevuta di rimborso spese che l'app genera automaticamente.
                     </div>
                 </details>
             </div>
