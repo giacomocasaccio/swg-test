@@ -4,10 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SiWeGO - Spedizioni Condivise</title>
+    
+    <!-- ========================================== -->
+    <!-- GOOGLE ANALYTICS 4 (GA4) SETUP -->
+    <!-- Sostituisci G-XXXXXXXXXX con il tuo ID reale -->
+    <!-- ========================================== -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-XXXXXXXXXX'); // INSERISCI IL TUO ID QUI
+    </script>
+    <!-- ========================================== -->
+
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <!-- Google Material Symbols (Per icona package_2) -->
+    <!-- Google Material Symbols -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,7 +40,6 @@
             background-color: #ffffff;
             color: #111827;
         }
-        /* Utility Classi per i colori brand */
         .text-brand-blue { color: var(--siwego-blue); }
         .text-brand-lime { color: var(--siwego-lime); }
         .bg-brand-blue { background-color: var(--siwego-blue); }
@@ -33,11 +47,8 @@
         .border-brand-lime { border-color: var(--siwego-lime); }
         .border-brand-blue { border-color: var(--siwego-blue); }
         .hover\:text-brand-blue:hover { color: var(--siwego-blue); }
-        
-        /* Classe custom per hover verde lime */
         .hover\:bg-brand-lime:hover { background-color: var(--siwego-lime); }
 
-        /* Header Glassmorphism Bianco */
         .glass-header {
             background: rgba(255, 255, 255, 0.90);
             backdrop-filter: blur(12px);
@@ -46,7 +57,6 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.02);
         }
 
-        /* Stile Notion/Bento */
         .bento-card {
             background: white;
             border: 1px solid #E5E7EB;
@@ -63,7 +73,6 @@
             transform: translateY(-4px);
         }
         
-        /* Google-like Interactive Cards */
         .google-card-bg {
             position: absolute;
             top: 0; right: 0; bottom: 0; left: 0;
@@ -73,7 +82,6 @@
         }
         .bento-card:hover .google-card-bg { opacity: 1; }
         
-        /* Improved Icons Style */
         .icon-float { 
             transition: transform 0.3s ease, box-shadow 0.3s ease; 
         }
@@ -81,7 +89,6 @@
             transform: scale(1.15) rotate(5deg); 
         }
 
-        /* Bottoni */
         .btn-primary {
             background-color: var(--siwego-blue);
             color: white;
@@ -125,7 +132,6 @@
             border-bottom-color: var(--siwego-lime);
         }
         
-        /* FAQ Accordion Animation */
         details > summary { list-style: none; }
         details > summary::-webkit-details-marker { display: none; }
         details[open] summary ~ * { animation: slideDown 0.2s ease-in-out; }
@@ -134,14 +140,12 @@
             100% { opacity: 1; transform: translateY(0); }
         }
         
-        /* Flex helper for aligning buttons at bottom */
         .card-content {
             display: flex;
             flex-direction: column;
             height: 100%;
         }
 
-        /* Dropdown Animation */
         .group:hover .group-hover\:block {
             animation: fadeIn 0.2s ease-out;
         }
@@ -150,29 +154,27 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Material Icons Align Fix */
         .material-symbols-outlined {
             vertical-align: middle;
-            font-size: 1.25rem; /* 20px */
+            font-size: 1.25rem;
         }
     </style>
 </head>
 <body class="antialiased">
 
-    <!-- Navbar Sticky Glassmorphism Bianco - Landing Page Version -->
+    <!-- Navbar -->
     <nav class="sticky top-0 z-50 glass-header">
         <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <div class="flex items-center gap-8">
-                    <!-- Logo -->
                     <a href="#" class="flex-shrink-0">
                         <img src="https://digithon.s3.eu-central-1.amazonaws.com/1622/649d9c9a896d1_logo_registered_siwego___1_.png" alt="SiWeGO Logo" class="h-12 w-auto object-contain"> 
                     </a>
                 </div>
                 
-                <!-- Landing Page Actions: Solo Accedi e Scarica App -->
                 <div class="flex items-center space-x-3">
-                    <a href="#" class="text-sm font-medium text-gray-600 hover:text-brand-blue transition-colors">Accedi</a>
+                    <!-- Tracking Event: click_accedi_dal_web -->
+                    <a href="#" onclick="gtag('event', 'click_accedi_dal_web')" class="text-sm font-medium text-gray-600 hover:text-brand-blue transition-colors">Accedi</a>
                     
                     <!-- Scarica App con Dropdown -->
                     <div class="relative group">
@@ -182,14 +184,16 @@
                         <!-- Dropdown Menu -->
                         <div class="absolute right-0 pt-2 w-48 hidden group-hover:block z-50">
                             <div class="bg-white border border-gray-100 rounded-xl shadow-xl overflow-hidden">
-                                <a href="#" class="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 transition-colors border-b border-gray-50">
+                                <!-- Tracking Event: click_apple_store -->
+                                <a href="#" onclick="gtag('event', 'click_apple_store')" class="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 transition-colors border-b border-gray-50">
                                     <i class="fab fa-apple text-xl text-gray-800"></i>
                                     <div class="text-left">
                                         <div class="text-[10px] text-gray-500 leading-none">Scarica su</div>
                                         <div class="text-sm font-bold text-gray-900 leading-none mt-1">App Store</div>
                                     </div>
                                 </a>
-                                <a href="#" class="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 transition-colors">
+                                <!-- Tracking Event: click_google_store -->
+                                <a href="#" onclick="gtag('event', 'click_google_store')" class="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 transition-colors">
                                     <i class="fab fa-google-play text-xl text-gray-800"></i>
                                     <div class="text-left">
                                         <div class="text-[10px] text-gray-500 leading-none">DISPONIBILE SU</div>
@@ -221,11 +225,12 @@
                 </p>
                 
                 <div class="flex flex-col sm:flex-row gap-4">
-                    <a href="#" class="btn-primary px-8 py-4 rounded-xl text-center shadow-lg shadow-blue-500/20 flex items-center justify-center gap-3 transition transform hover:-translate-y-1">
+                    <!-- Tracking: spedisci_con_siwego_2 (Assunto come ricerca trasporto) -->
+                    <a href="#" onclick="gtag('event', 'spedisci_con_siwego_2')" class="btn-primary px-8 py-4 rounded-xl text-center shadow-lg shadow-blue-500/20 flex items-center justify-center gap-3 transition transform hover:-translate-y-1">
                         <i class="fas fa-search"></i> CERCA UN TRASPORTO
                     </a>
-                    <a href="#" class="btn-lime px-8 py-4 rounded-xl text-center shadow-lg shadow-lime-500/20 flex items-center justify-center gap-3 transition transform hover:-translate-y-1">
-                        <!-- Icona Google "package_2" -->
+                    <!-- Tracking: offri_un_trasporto_2 -->
+                    <a href="#" onclick="gtag('event', 'offri_un_trasporto_2')" class="btn-lime px-8 py-4 rounded-xl text-center shadow-lg shadow-lime-500/20 flex items-center justify-center gap-3 transition transform hover:-translate-y-1">
                         <span class="material-symbols-outlined">package_2</span> OFFRI UN TRASPORTO
                     </a>
                 </div>
@@ -240,10 +245,9 @@
                 </div>
             </div>
             
-            <!-- Hero Visual -->
+            <!-- Hero Visual (Hidden on mobile) -->
             <div class="relative hidden lg:block">
                 <div class="absolute inset-0 bg-gradient-to-tr from-blue-100 to-lime-100 rounded-full filter blur-3xl opacity-70"></div>
-                <!-- Mockup -->
                 <div class="relative bg-white border border-gray-200 rounded-2xl shadow-2xl p-6 max-w-md mx-auto transform rotate-2 hover:rotate-0 transition duration-500">
                     <div class="flex items-center justify-between mb-6">
                         <div class="flex items-center gap-3">
@@ -275,7 +279,7 @@
         </div>
     </section>
 
-    <!-- NUOVA SEZIONE INTERATTIVA: Come Funziona -->
+    <!-- SEZIONE INTERATTIVA: Come Funziona -->
     <section class="py-24 bg-white border-t border-gray-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
@@ -330,12 +334,11 @@
                         </div>
                     </div>
                     
-                    <!-- Visual Spedire -->
                     <div class="bg-blue-50 rounded-3xl p-8 border border-blue-100 text-center">
                         <img src="https://static.wixstatic.com/media/abf7fb_60174e0167494158807cfdf3b3e9e254~mv2.png" alt="Box" class="w-48 h-auto mx-auto mb-6 drop-shadow-xl transform hover:scale-110 transition duration-500">
                         <h3 class="text-2xl font-bold text-brand-blue mb-2">Spedizioni Smart</h3>
                         <p class="text-gray-600 mb-6">Dimentica i costi fissi dei corrieri. Scegli la sharing economy.</p>
-                        <a href="#" class="inline-block bg-brand-blue text-white px-6 py-3 rounded-xl font-semibold hover:bg-blue-700 transition">Trova un trasporto</a>
+                        <a href="#" onclick="gtag('event', 'spedisci_con_siwego_2')" class="inline-block bg-brand-blue text-white px-6 py-3 rounded-xl font-semibold hover:bg-blue-700 transition">Trova un trasporto</a>
                     </div>
                 </div>
             </div>
@@ -376,23 +379,20 @@
                         </div>
                     </div>
                     
-                    <!-- Visual Trasportare -->
                     <div class="bg-lime-50 rounded-3xl p-8 border border-lime-200 text-center">
                         <img src="https://static.wixstatic.com/media/abf7fb_bbe4533fc1164764b24a5d79a1515185~mv2.png" alt="Truck" class="w-48 h-auto mx-auto mb-6 drop-shadow-xl transform hover:scale-110 transition duration-500">
                         <h3 class="text-2xl font-bold text-brand-lime mb-2">Viaggia a costo zero</h3>
                         <p class="text-gray-600 mb-6">Ripagati benzina e autostrada semplicemente portando un pacco con te.</p>
-                        <a href="#" class="inline-block bg-brand-lime text-white px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition">Offri passaggio</a>
+                        <a href="#" onclick="gtag('event', 'offri_un_trasporto_2')" class="inline-block bg-brand-lime text-white px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition">Offri passaggio</a>
                     </div>
                 </div>
             </div>
-
         </div>
     </section>
 
-    <!-- CARD SERVIZI (Allineate e con Titolo) -->
+    <!-- CARD SERVIZI -->
     <section class="py-16 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Titolo Nuova Sezione -->
             <div class="text-center mb-12">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Trova la soluzione adatta a te</h2>
                 <p class="mt-4 text-lg text-gray-600">Scegli come vuoi utilizzare SiWeGO oggi.</p>
@@ -408,8 +408,8 @@
                     <p class="text-gray-600 mb-8 text-sm leading-relaxed flex-grow">
                         Il modo più economico per inviare pacchi. Risparmia fino all'80% rispetto ai corrieri tradizionali sfruttando passaggi già programmati.
                     </p>
-                    <!-- FIX: Hover text color set explicitly to white -->
-                    <a href="#" class="w-full text-center py-3 border border-brand-blue text-[var(--siwego-blue)] rounded-xl font-semibold text-sm hover:bg-[#2F54DD] hover:text-white transition mt-auto">
+                    <!-- Tracking: spedisci_con_siwego_2 -->
+                    <a href="#" onclick="gtag('event', 'spedisci_con_siwego_2')" class="w-full text-center py-3 border border-brand-blue text-[var(--siwego-blue)] rounded-xl font-semibold text-sm hover:bg-[#2F54DD] hover:text-white transition mt-auto">
                         Calcola preventivo
                     </a>
                 </div>
@@ -424,7 +424,8 @@
                     <p class="text-gray-600 mb-8 text-sm leading-relaxed flex-grow">
                         Ammortizza le spese dei tuoi viaggi. Offri spazio nel tuo bagagliaio e ricevi un contributo spese immediato.
                     </p>
-                    <a href="#" class="w-full text-center py-3 bg-brand-lime text-white rounded-xl font-semibold text-sm hover:opacity-90 transition mt-auto flex items-center justify-center gap-2">
+                    <!-- Tracking: offri_un_trasporto_2 -->
+                    <a href="#" onclick="gtag('event', 'offri_un_trasporto_2')" class="w-full text-center py-3 bg-brand-lime text-white rounded-xl font-semibold text-sm hover:opacity-90 transition mt-auto flex items-center justify-center gap-2">
                         <span class="material-symbols-outlined text-sm">package_2</span> Offri passaggio
                     </a>
                 </div>
@@ -438,7 +439,8 @@
                     <p class="text-gray-600 mb-8 text-sm leading-relaxed flex-grow">
                         Soluzioni di welfare aziendale e ottimizzazione carichi per trasportatori professionisti. Riempi i tuoi mezzi al ritorno.
                     </p>
-                    <a href="#" class="w-full text-center py-3 border border-gray-300 text-gray-700 rounded-xl font-semibold text-sm hover:bg-black hover:text-white hover:border-black transition mt-auto">
+                    <!-- Tracking: generic conversion or contact -->
+                    <a href="#" onclick="gtag('event', 'ads_conversion_Contattaci_1')" class="w-full text-center py-3 border border-gray-300 text-gray-700 rounded-xl font-semibold text-sm hover:bg-black hover:text-white hover:border-black transition mt-auto">
                         Soluzioni Business
                     </a>
                 </div>
@@ -446,7 +448,7 @@
         </div>
     </section>
 
-    <!-- SEZIONE "PERCHÉ ESISTE SIWEGO" (Ridimensionata & Icone Grandi) -->
+    <!-- SEZIONE "PERCHÉ ESISTE SIWEGO" -->
     <section class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
@@ -454,15 +456,12 @@
                 <p class="text-lg text-gray-600">I numeri parlano chiaro. Risolviamo i problemi della logistica moderna.</p>
             </div>
 
-            <!-- Bento Grid Layout -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 
-                <!-- Card 1 -->
                 <div class="bento-card bg-gray-50 group cursor-pointer border hover:border-brand-blue">
                     <div class="google-card-bg"></div>
                     <div class="relative z-10 flex flex-col justify-between h-full">
                         <div class="flex justify-between items-start">
-                            <!-- Icona Ingrandita -->
                             <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center text-brand-blue shadow-md icon-float shadow-blue-100">
                                 <i class="fas fa-chart-pie text-3xl"></i>
                             </div>
@@ -475,12 +474,10 @@
                     </div>
                 </div>
 
-                <!-- Card 2 -->
                 <div class="bento-card bg-lime-50 border border-brand-lime/20 hover:border-brand-lime group cursor-pointer">
                     <div class="google-card-bg bg-gradient-to-b from-white to-transparent"></div>
                     <div class="relative z-10 flex flex-col justify-between h-full">
                         <div class="flex justify-between items-start">
-                             <!-- Icona Ingrandita -->
                             <div class="w-16 h-16 bg-brand-lime rounded-full flex items-center justify-center text-white shadow-md icon-float shadow-lime-200">
                                 <i class="fas fa-leaf text-3xl"></i>
                             </div>
@@ -493,12 +490,10 @@
                     </div>
                 </div>
 
-                <!-- Card 3 -->
                 <div class="bento-card bg-blue-50 border border-brand-blue/20 hover:border-brand-blue group cursor-pointer">
                     <div class="google-card-bg bg-gradient-to-b from-white to-transparent"></div>
                     <div class="relative z-10 flex flex-col justify-between h-full">
                         <div class="flex justify-between items-start">
-                             <!-- Icona Ingrandita -->
                             <div class="w-16 h-16 bg-brand-blue rounded-full flex items-center justify-center text-white shadow-md icon-float shadow-blue-200">
                                 <i class="fas fa-car-crash text-3xl"></i>
                             </div>
@@ -515,7 +510,7 @@
         </div>
     </section>
 
-    <!-- FAQ Section (Con Anchor Link ID per menu) -->
+    <!-- FAQ Section -->
     <section class="py-20 bg-gray-50" id="faq">
         <div class="max-w-3xl mx-auto px-4">
             <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Domande Frequenti</h2>
@@ -574,7 +569,7 @@
         </div>
     </section>
 
-    <!-- Contact Section (Simple) -->
+    <!-- Contact Section -->
     <section class="py-16 bg-white border-t border-gray-200">
         <div class="max-w-4xl mx-auto px-4 text-center">
             <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-50 text-brand-blue mb-6">
@@ -584,13 +579,14 @@
             <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
                 Non hai trovato la risposta che cercavi nelle FAQ? Scrivici direttamente, il nostro team è a tua disposizione.
             </p>
-            <a href="mailto:info@siwego.com" class="inline-flex items-center gap-2 px-8 py-3 rounded-xl bg-brand-blue text-white font-semibold hover:opacity-90 transition shadow-lg shadow-blue-500/20">
+            <!-- Tracking: ads_conversion_Contattaci_1 -->
+            <a href="mailto:info@siwego.com" onclick="gtag('event', 'ads_conversion_Contattaci_1')" class="inline-flex items-center gap-2 px-8 py-3 rounded-xl bg-brand-blue text-white font-semibold hover:opacity-90 transition shadow-lg shadow-blue-500/20">
                 <i class="fas fa-paper-plane"></i> Contattaci via Email
             </a>
         </div>
     </section>
 
-    <!-- Footer Landing Page Version -->
+    <!-- Footer -->
     <footer class="bg-white border-t border-gray-200 pt-16 pb-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
@@ -607,14 +603,13 @@
                     </p>
                 </div>
 
-                <!-- Colonna 2: Supporto (Senza navigazione generale) -->
+                <!-- Colonna 2: Supporto -->
                 <div>
                     <h4 class="font-bold text-sm text-gray-900 mb-4">Supporto</h4>
                     <ul class="space-y-2 text-sm text-gray-500">
                         <li><a href="#faq" class="hover:text-brand-blue">FAQ</a></li>
-                        <!-- Link Contatti: Mailto come richiesto -->
-                        <li><a href="mailto:info@siwego.com" class="hover:text-brand-blue">Contatti</a></li>
-                        <!-- Link Placeholder settabili -->
+                        <!-- Tracking: ads_conversion_Contattaci_1 -->
+                        <li><a href="mailto:info@siwego.com" onclick="gtag('event', 'ads_conversion_Contattaci_1')" class="hover:text-brand-blue">Contatti</a></li>
                         <li><a href="#" class="hover:text-brand-blue">Termini e Condizioni</a></li>
                         <li><a href="#" class="hover:text-brand-blue">Privacy Policy</a></li>
                     </ul>
@@ -624,25 +619,25 @@
                 <div>
                     <h4 class="font-bold text-sm text-gray-900 mb-4">Seguici</h4>
                     <div class="flex space-x-4">
-                        <!-- Social con Hover Brand Colors -->
                         <a href="#" class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-gray-500 hover:bg-brand-lime hover:text-white transition"><i class="fab fa-facebook-f"></i></a>
                         <a href="#" class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-gray-500 hover:bg-brand-lime hover:text-white transition"><i class="fab fa-instagram"></i></a>
                         <a href="#" class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-gray-500 hover:bg-brand-lime hover:text-white transition"><i class="fab fa-linkedin-in"></i></a>
                         <a href="#" class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-gray-500 hover:bg-brand-lime hover:text-white transition"><i class="fab fa-youtube"></i></a>
                     </div>
                     
-                    <!-- Pulsanti Download App Footer -->
                     <div class="mt-8">
                         <h4 class="font-bold text-sm text-gray-900 mb-3">Scarica l'App</h4>
                         <div class="flex flex-col gap-2">
-                            <button class="bg-black text-white px-4 py-2 rounded-lg text-xs flex items-center gap-2 hover:bg-gray-800 transition w-fit">
+                            <!-- Tracking: click_apple_store -->
+                            <button onclick="gtag('event', 'click_apple_store')" class="bg-black text-white px-4 py-2 rounded-lg text-xs flex items-center gap-2 hover:bg-gray-800 transition w-fit">
                                 <i class="fab fa-apple text-lg"></i> 
                                 <div class="text-left leading-none">
                                     <div class="text-[9px] uppercase">Scarica su</div>
                                     <div class="font-bold text-sm">App Store</div>
                                 </div>
                             </button>
-                            <button class="bg-black text-white px-4 py-2 rounded-lg text-xs flex items-center gap-2 hover:bg-gray-800 transition w-fit">
+                            <!-- Tracking: click_google_store -->
+                            <button onclick="gtag('event', 'click_google_store')" class="bg-black text-white px-4 py-2 rounded-lg text-xs flex items-center gap-2 hover:bg-gray-800 transition w-fit">
                                 <i class="fab fa-google-play text-lg"></i>
                                 <div class="text-left leading-none">
                                     <div class="text-[9px] uppercase">Disponibile su</div>
@@ -660,22 +655,17 @@
     </footer>
 
     <script>
-        // Script per gestire i tab
+        // Tab Script
         function switchTab(tabName) {
-            // Nascondi tutti i contenuti
             document.querySelectorAll('.tab-content').forEach(content => {
                 content.classList.remove('active');
             });
             
-            // Rimuovi classe active da tutti i bottoni
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
 
-            // Mostra contenuto selezionato
             document.getElementById('content-' + tabName).classList.add('active');
-            
-            // Attiva bottone selezionato
             document.getElementById('btn-' + tabName).classList.add('active');
         }
     </script>
