@@ -175,8 +175,8 @@
                 </div>
                 
                 <div class="flex items-center space-x-3">
-                    <!-- Tracking Event: click_accedi_dal_web -->
-                    <a href="https://web.siwego.com/tabs/home" onclick="gtag('event', 'click_accedi_dal_web')" class="text-sm font-medium text-gray-600 hover:text-brand-brown transition-colors">Accedi</a>
+                    <!-- Tracking: click_login (Navbar) -->
+                    <a href="https://web.siwego.com/tabs/home" onclick="gtag('event', 'click_login', { 'position': 'navbar' })" class="text-sm font-medium text-gray-600 hover:text-brand-brown transition-colors">Accedi</a>
                     
                     <!-- Scarica App con Dropdown -->
                     <div class="relative group">
@@ -186,16 +186,16 @@
                         <!-- Dropdown Menu -->
                         <div class="absolute right-0 pt-2 w-48 hidden group-hover:block z-50">
                             <div class="bg-white border border-gray-100 rounded-xl shadow-xl overflow-hidden">
-                                <!-- Tracking Event: click_apple_store -->
-                                <a href="https://apps.apple.com/it/app/siwego/id1483064253" onclick="gtag('event', 'click_apple_store')" class="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 transition-colors border-b border-gray-50">
+                                <!-- Tracking: click_download_ios (Navbar) -->
+                                <a href="https://apps.apple.com/it/app/siwego/id1483064253" onclick="gtag('event', 'click_download_ios', { 'position': 'navbar' })" class="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 transition-colors border-b border-gray-50">
                                     <i class="fab fa-apple text-xl text-gray-800"></i>
                                     <div class="text-left">
                                         <div class="text-[10px] text-gray-500 leading-none">Scarica su</div>
                                         <div class="text-sm font-bold text-gray-900 leading-none mt-1">App Store</div>
                                     </div>
                                 </a>
-                                <!-- Tracking Event: click_google_store -->
-                                <a href="https://play.google.com/store/apps/details?id=it.siwego.clientapp&hl=it" onclick="gtag('event', 'click_google_store')" class="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 transition-colors">
+                                <!-- Tracking: click_download_android (Navbar) -->
+                                <a href="https://play.google.com/store/apps/details?id=it.siwego.clientapp&hl=it" onclick="gtag('event', 'click_download_android', { 'position': 'navbar' })" class="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 transition-colors">
                                     <i class="fab fa-google-play text-xl text-gray-800"></i>
                                     <div class="text-left">
                                         <div class="text-[10px] text-gray-500 leading-none">DISPONIBILE SU</div>
@@ -228,12 +228,12 @@
                 </p>
                 
                 <div class="flex flex-col sm:flex-row gap-4">
-                    <!-- Tracking: spedisci_con_siwego_2 -->
-                    <a href="https://web.siwego.com/tabs/send" onclick="gtag('event', 'spedisci_con_siwego_2')" class="btn-primary px-8 py-4 rounded-xl text-center shadow-lg flex items-center justify-center gap-3 transition transform hover:-translate-y-1">
+                    <!-- Tracking: click_cerca_trasporto (Hero) -->
+                    <a href="https://web.siwego.com/tabs/send" onclick="gtag('event', 'click_cerca_trasporto', { 'position': 'hero' })" class="btn-primary px-8 py-4 rounded-xl text-center shadow-lg flex items-center justify-center gap-3 transition transform hover:-translate-y-1">
                         <i class="fas fa-search"></i> CERCA UN TRASPORTO
                     </a>
-                    <!-- Tracking: offri_un_trasporto_2 -->
-                    <a href="https://web.siwego.com/carry" onclick="gtag('event', 'offri_un_trasporto_2')" class="btn-lime px-8 py-4 rounded-xl text-center shadow-lg shadow-lime-500/20 flex items-center justify-center gap-3 transition transform hover:-translate-y-1">
+                    <!-- Tracking: click_offri_trasporto (Hero) -->
+                    <a href="https://web.siwego.com/carry" onclick="gtag('event', 'click_offri_trasporto', { 'position': 'hero' })" class="btn-lime px-8 py-4 rounded-xl text-center shadow-lg shadow-lime-500/20 flex items-center justify-center gap-3 transition transform hover:-translate-y-1">
                         <span class="material-symbols-outlined">package_2</span> OFFRI UN TRASPORTO
                     </a>
                 </div>
@@ -344,7 +344,8 @@
                         <img src="https://static.wixstatic.com/media/abf7fb_60174e0167494158807cfdf3b3e9e254~mv2.png" alt="Box" class="w-48 h-auto mx-auto mb-6 drop-shadow-xl transform hover:scale-110 transition duration-500">
                         <h3 class="text-2xl font-bold text-brand-brown mb-2">Spedizioni Smart</h3>
                         <p class="text-gray-600 mb-6">Dimentica i costi fissi dei corrieri. Scegli la sharing economy.</p>
-                        <a href="https://web.siwego.com/tabs/send" onclick="gtag('event', 'spedisci_con_siwego_2')" class="inline-block bg-brand-brown text-white px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition">Trova un trasporto</a>
+                        <!-- Tracking: click_cerca_trasporto (Section Come Funziona) -->
+                        <a href="https://web.siwego.com/tabs/send" onclick="gtag('event', 'click_cerca_trasporto', { 'position': 'how_it_works' })" class="inline-block bg-brand-brown text-white px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition">Trova un trasporto</a>
                     </div>
                 </div>
             </div>
@@ -389,7 +390,8 @@
                         <img src="https://static.wixstatic.com/media/abf7fb_bbe4533fc1164764b24a5d79a1515185~mv2.png" alt="Truck" class="w-48 h-auto mx-auto mb-6 drop-shadow-xl transform hover:scale-110 transition duration-500">
                         <h3 class="text-2xl font-bold text-brand-lime mb-2">Viaggia a costo zero</h3>
                         <p class="text-gray-600 mb-6">Ripagati benzina e autostrada semplicemente portando un pacco con te.</p>
-                        <a href="https://web.siwego.com/carry" onclick="gtag('event', 'offri_un_trasporto_2')" class="inline-block bg-brand-lime text-white px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition">Offri passaggio</a>
+                        <!-- Tracking: click_offri_trasporto (Section Come Funziona) -->
+                        <a href="https://web.siwego.com/carry" onclick="gtag('event', 'click_offri_trasporto', { 'position': 'how_it_works' })" class="inline-block bg-brand-lime text-white px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition">Offri passaggio</a>
                     </div>
                 </div>
             </div>
@@ -420,16 +422,16 @@
                         </p>
                         
                         <div class="flex flex-col sm:flex-row gap-4">
-                            <!-- Apple Store: Black -->
-                            <a href="https://apps.apple.com/it/app/siwego/id1483064253" onclick="gtag('event', 'click_apple_store')" class="flex items-center gap-3 bg-black text-white px-5 py-3 rounded-xl hover:bg-gray-800 transition shadow-lg transform hover:-translate-y-1 w-fit">
+                            <!-- Apple Store: Black - Tracking: click_download_ios (App Section) -->
+                            <a href="https://apps.apple.com/it/app/siwego/id1483064253" onclick="gtag('event', 'click_download_ios', { 'position': 'app_section' })" class="flex items-center gap-3 bg-black text-white px-5 py-3 rounded-xl hover:bg-gray-800 transition shadow-lg transform hover:-translate-y-1 w-fit">
                                 <i class="fab fa-apple text-3xl"></i>
                                 <div class="text-left leading-none">
                                     <div class="text-[10px] uppercase tracking-wider opacity-80">Scarica su</div>
                                     <div class="font-bold text-lg">App Store</div>
                                 </div>
                             </a>
-                            <!-- Google Play: Black (updated from white) -->
-                            <a href="https://play.google.com/store/apps/details?id=it.siwego.clientapp&hl=it" onclick="gtag('event', 'click_google_store')" class="flex items-center gap-3 bg-black text-white px-5 py-3 rounded-xl hover:bg-gray-800 transition shadow-lg transform hover:-translate-y-1 w-fit">
+                            <!-- Google Play: Black - Tracking: click_download_android (App Section) -->
+                            <a href="https://play.google.com/store/apps/details?id=it.siwego.clientapp&hl=it" onclick="gtag('event', 'click_download_android', { 'position': 'app_section' })" class="flex items-center gap-3 bg-black text-white px-5 py-3 rounded-xl hover:bg-gray-800 transition shadow-lg transform hover:-translate-y-1 w-fit">
                                 <i class="fab fa-google-play text-3xl text-white"></i>
                                 <div class="text-left leading-none">
                                     <div class="text-[10px] uppercase tracking-wider opacity-80">DISPONIBILE SU</div>
@@ -600,8 +602,8 @@
             <p class="text-sm text-gray-500 mb-4 max-w-lg mx-auto">
                 Se non hai trovato la risposta nelle FAQ, il nostro team è a tua disposizione.
             </p>
-            <!-- Minimal "Ghost" Button -->
-            <a href="mailto:info@siwego.com" onclick="gtag('event', 'ads_conversion_Contattaci_1')" class="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-gray-200 text-gray-500 text-sm font-medium hover:bg-gray-50 hover:text-gray-800 transition">
+            <!-- Minimal "Ghost" Button - Tracking: click_supporto_email -->
+            <a href="mailto:info@siwego.com" onclick="gtag('event', 'click_supporto_email', { 'position': 'contact_section' })" class="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-gray-200 text-gray-500 text-sm font-medium hover:bg-gray-50 hover:text-gray-800 transition">
                 <i class="far fa-envelope"></i> Scrivici una mail
             </a>
         </div>
@@ -629,8 +631,8 @@
                     <h4 class="font-bold text-sm text-gray-900 mb-4">Supporto</h4>
                     <ul class="space-y-2 text-sm text-gray-500">
                         <li><a href="#faq" class="hover:text-brand-brown">FAQ</a></li>
-                        <!-- Tracking: ads_conversion_Contattaci_1 -->
-                        <li><a href="mailto:info@siwego.com" onclick="gtag('event', 'ads_conversion_Contattaci_1')" class="hover:text-brand-brown">Contatti</a></li>
+                        <!-- Tracking: click_supporto_email (Footer Link) -->
+                        <li><a href="mailto:info@siwego.com" onclick="gtag('event', 'click_supporto_email', { 'position': 'footer_link' })" class="hover:text-brand-brown">Contatti</a></li>
                         <li><a href="https://www.siwego.com/termini-e-condizioni" class="hover:text-brand-brown">Termini e Condizioni</a></li>
                         <li><a href="https://www.siwego.com/privacy-policy" class="hover:text-brand-brown">Privacy Policy</a></li>
                     </ul>
@@ -649,16 +651,16 @@
                     <div class="mt-8">
                         <h4 class="font-bold text-sm text-gray-900 mb-3">Scarica l'App</h4>
                         <div class="flex flex-col gap-2">
-                            <!-- Tracking: click_apple_store -->
-                            <a href="https://apps.apple.com/it/app/siwego/id1483064253" onclick="gtag('event', 'click_apple_store')" class="bg-black text-white px-4 py-2 rounded-lg text-xs flex items-center gap-2 hover:bg-gray-800 transition w-fit">
+                            <!-- Tracking: click_download_ios (Footer) -->
+                            <a href="https://apps.apple.com/it/app/siwego/id1483064253" onclick="gtag('event', 'click_download_ios', { 'position': 'footer' })" class="bg-black text-white px-4 py-2 rounded-lg text-xs flex items-center gap-2 hover:bg-gray-800 transition w-fit">
                                 <i class="fab fa-apple text-lg"></i> 
                                 <div class="text-left leading-none">
                                     <div class="text-[9px] uppercase">Scarica su</div>
                                     <div class="font-bold text-sm">App Store</div>
                                 </div>
                             </a>
-                            <!-- Tracking: click_google_store -->
-                            <a href="https://play.google.com/store/apps/details?id=it.siwego.clientapp&hl=it" onclick="gtag('event', 'click_google_store')" class="bg-black text-white px-4 py-2 rounded-lg text-xs flex items-center gap-2 hover:bg-gray-800 transition w-fit">
+                            <!-- Tracking: click_download_android (Footer) -->
+                            <a href="https://play.google.com/store/apps/details?id=it.siwego.clientapp&hl=it" onclick="gtag('event', 'click_download_android', { 'position': 'footer' })" class="bg-black text-white px-4 py-2 rounded-lg text-xs flex items-center gap-2 hover:bg-gray-800 transition w-fit">
                                 <i class="fab fa-google-play text-lg"></i>
                                 <div class="text-left leading-none">
                                     <div class="text-[9px] uppercase">Disponibile su</div>
