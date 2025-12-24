@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SiWeGO - Spedizioni Condivise</title>
+    
+    <!-- ========================================== -->
+    <!-- GOOGLE ANALYTICS 4 (GA4) SETUP -->
+    <!-- Sostituisci G-XXXXXXXXXX con il tuo ID reale -->
+    <!-- ========================================== -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-XXXXXXXXXX'); // INSERISCI IL TUO ID QUI
+    </script>
+    <!-- ========================================== -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Material Symbols -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* BEIGE/MARRONCINO (Stile Kraft/Cartone) */
+            --siwego-brown: #B58E58; 
+            --siwego-lime: #B7CD01;
+            --siwego-lime-light: #F1F6D6;
+            --bg-gray: #F7F7F7;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #111827;
+        }
+        .text-brand-brown { color: var(--siwego-brown); }
+        .text-brand-lime { color: var(--siwego-lime); }
+        .bg-brand-brown { background-color: var(--siwego-brown); }
+        .bg-brand-lime { background-color: var(--siwego-lime); }
+        .border-brand-lime { border-color: var(--siwego-lime); }
+        .border-brand-brown { border-color: var(--siwego-brown); }
+        
+        .hover\:text-brand-brown:hover { color: var(--siwego-brown); }
+        .hover\:bg-brand-lime:hover { background-color: var(--siwego-lime); }
+
+        .glass-header {
+            background: rgba(255, 255, 255, 0.90);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid #F3F4F6;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+        }
+
+        .bento-card {
+            background: white;
+            border: 1px solid #E5E7EB;
+            border-radius: 16px;
+            padding: 1.5rem; 
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        .bento-card:hover {
+            border-color: var(--siwego-brown);
+            box-shadow: 0 12px 24px -8px rgba(181, 142, 88, 0.25);
+            transform: translateY(-4px);
+        }
+        
+        .google-card-bg {
+            position: absolute;
+            top: 0; right: 0; bottom: 0; left: 0;
+            background: radial-gradient(circle at top right, #F3F4F6, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .bento-card:hover .google-card-bg { opacity: 1; }
+        
+        .icon-float { 
+            transition: transform 0.3s ease, box-shadow 0.3s ease; 
+        }
+        .bento-card:hover .icon-float { 
+            transform: scale(1.15) rotate(5deg); 
+        }
+
+        .btn-primary {
+            background-color: var(--siwego-brown);
+            color: white;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .btn-primary:hover { 
+            filter: brightness(105%);
+            box-shadow: 0 4px 12px rgba(181, 142, 88, 0.4);
+        }
+        
+        .btn-lime {
+            background-color: var(--siwego-lime);
+            color: white; 
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .btn-lime:hover {
+            filter: brightness(105%);
+            box-shadow: 0 4px 12px rgba(183, 205, 1, 0.4);
+        }
+        
+        /* Tab Animation */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .tab-btn {
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        .tab-btn.active {
+            color: var(--siwego-brown);
+            border-bottom-color: var(--siwego-brown);
+        }
+        .tab-btn-lime.active {
+            color: var(--siwego-lime);
+            border-bottom-color: var(--siwego-lime);
+        }
+        
+        details > summary { list-style: none; }
+        details > summary::-webkit-details-marker { display: none; }
+        details[open] summary ~ * { animation: slideDown 0.2s ease-in-out; }
+        @keyframes slideDown {
+            0% { opacity: 0; transform: translateY(-10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        
+        .card-content {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .group:hover .group-hover\:block {
+            animation: fadeIn 0.2s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .material-symbols-outlined {
+            vertical-align: middle;
+            font-size: 1.25rem;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Navbar -->
+    <nav class="sticky top-0 z-50 glass-header">
+        <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center gap-8">
+                    <a href="#" class="flex-shrink-0">
+                        <img src="https://digithon.s3.eu-central-1.amazonaws.com/1622/649d9c9a896d1_logo_registered_siwego___1_.png" alt="SiWeGO Logo" class="h-12 w-auto object-contain"> 
+                    </a>
+                </div>
+                
+                <div class="flex items-center space-x-3">
+                    <!-- Tracking Event: click_accedi_dal_web -->
+                    <a href="https://web.siwego.com/tabs/home" onclick="gtag('event', 'click_accedi_dal_web')" class="text-sm font-medium text-gray-600 hover:text-brand-brown transition-colors">Accedi</a>
+                    
+                    <!-- Scarica App con Dropdown -->
+                    <div class="relative group">
+                        <button class="btn-lime px-5 py-2.5 rounded-lg text-sm shadow-sm text-shadow flex items-center gap-2">
+                            Scarica l'App <i class="fas fa-chevron-down text-xs"></i>
+                        </button>
+                        <!-- Dropdown Menu -->
+                        <div class="absolute right-0 pt-2 w-48 hidden group-hover:block z-50">
+                            <div class="bg-white border border-gray-100 rounded-xl shadow-xl overflow-hidden">
+                                <!-- Tracking Event: click_apple_store -->
+                                <a href="https://apps.apple.com/it/app/siwego/id1483064253" onclick="gtag('event', 'click_apple_store')" class="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 transition-colors border-b border-gray-50">
+                                    <i class="fab fa-apple text-xl text-gray-800"></i>
+                                    <div class="text-left">
+                                        <div class="text-[10px] text-gray-500 leading-none">Scarica su</div>
+                                        <div class="text-sm font-bold text-gray-900 leading-none mt-1">App Store</div>
+                                    </div>
+                                </a>
+                                <!-- Tracking Event: click_google_store -->
+                                <a href="https://play.google.com/store/apps/details?id=it.siwego.clientapp&hl=it" onclick="gtag('event', 'click_google_store')" class="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 transition-colors">
+                                    <i class="fab fa-google-play text-xl text-gray-800"></i>
+                                    <div class="text-left">
+                                        <div class="text-[10px] text-gray-500 leading-none">DISPONIBILE SU</div>
+                                        <div class="text-sm font-bold text-gray-900 leading-none mt-1">Google Play</div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="grid lg:grid-cols-2 gap-16 items-center">
+            <div>
+                <!-- BADGE UPDATED: Logistica 4.0 -->
+                <div class="inline-block px-3 py-1 mb-6 text-xs font-semibold tracking-wider text-brand-brown uppercase bg-orange-50 rounded-full border border-orange-100">
+                    🚀 Logistica 4.0
+                </div>
+                <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight text-gray-900 mb-6 leading-tight">
+                    Il nuovo modo per <br>
+                    <span class="text-brand-brown">SPEDIRE</span> e 
+                    <span class="text-brand-lime">TRASPORTARE</span>
+                </h1>
+                <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+                    Mettiamo in contatto chi deve spedire con chi è già in viaggio. Risparmia, guadagna e aiuta l'ambiente.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <!-- Tracking: spedisci_con_siwego_2 -->
+                    <a href="https://web.siwego.com/tabs/send" onclick="gtag('event', 'spedisci_con_siwego_2')" class="btn-primary px-8 py-4 rounded-xl text-center shadow-lg flex items-center justify-center gap-3 transition transform hover:-translate-y-1">
+                        <i class="fas fa-search"></i> CERCA UN TRASPORTO
+                    </a>
+                    <!-- Tracking: offri_un_trasporto_2 -->
+                    <a href="https://web.siwego.com/carry" onclick="gtag('event', 'offri_un_trasporto_2')" class="btn-lime px-8 py-4 rounded-xl text-center shadow-lg shadow-lime-500/20 flex items-center justify-center gap-3 transition transform hover:-translate-y-1">
+                        <span class="material-symbols-outlined">package_2</span> OFFRI UN TRASPORTO
+                    </a>
+                </div>
+                
+                <div class="mt-8 flex items-center gap-4 text-sm text-gray-500">
+                    <div class="flex -space-x-2">
+                        <div class="w-8 h-8 rounded-full bg-gray-200 border-2 border-white flex items-center justify-center text-xs font-bold">A</div>
+                        <div class="w-8 h-8 rounded-full bg-gray-300 border-2 border-white flex items-center justify-center text-xs font-bold">M</div>
+                        <div class="w-8 h-8 rounded-full bg-gray-400 border-2 border-white flex items-center justify-center text-xs font-bold">G</div>
+                    </div>
+                    <p>Unisciti a <strong>+50.000</strong> utenti nella community</p>
+                </div>
+            </div>
+            
+            <!-- Hero Visual (Hidden on mobile) -->
+            <div class="relative hidden lg:block">
+                <!-- Warm gradient -->
+                <div class="absolute inset-0 bg-gradient-to-tr from-orange-100 to-lime-100 rounded-full filter blur-3xl opacity-70"></div>
+                <div class="relative bg-white border border-gray-200 rounded-2xl shadow-2xl p-6 max-w-md mx-auto transform rotate-2 hover:rotate-0 transition duration-500">
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
+                                <i class="fas fa-user text-gray-500"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold text-gray-900">Mario Rossi</div>
+                                <div class="text-xs text-green-600 font-medium">● Online - Driver</div>
+                            </div>
+                        </div>
+                        <i class="fas fa-ellipsis-h text-gray-400"></i>
+                    </div>
+                    <!-- Beige tint message -->
+                    <div class="bg-orange-50 rounded-lg p-3 mb-2 rounded-tl-none text-sm text-gray-800">
+                        Ciao! Ho visto la tua richiesta. Parto domani per Roma alle 8:00.
+                    </div>
+                    <div class="bg-gray-100 rounded-lg p-3 mb-4 rounded-tr-none ml-auto text-sm text-gray-800 w-fit max-w-[80%]">
+                        Perfetto! Il pacco è pronto. Ci vediamo in stazione?
+                    </div>
+                    <div class="border-t pt-4">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-bold text-gray-500 uppercase tracking-wide">Prezzo Concordato</span>
+                            <span class="text-xl font-bold text-brand-brown">€ 35,00</span>
+                        </div>
+                        <button class="w-full mt-3 bg-brand-lime text-white py-2 rounded-lg font-bold text-sm cursor-default">Conferma Accordo</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEZIONE INTERATTIVA: Come Funziona -->
+    <section class="py-24 bg-white border-t border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-gray-900">Come funziona SiWeGO?</h2>
+                <p class="mt-4 text-lg text-gray-600">Seleziona il tuo obiettivo e scopri come è semplice.</p>
+                
+                <!-- TABS -->
+                <div class="flex justify-center gap-8 mt-8 border-b border-gray-200 max-w-md mx-auto">
+                    <button onclick="switchTab('spedire')" id="btn-spedire" class="tab-btn active pb-4 px-6 text-lg font-semibold text-gray-500 hover:text-brand-brown">
+                        📦 Voglio Spedire
+                    </button>
+                    <button onclick="switchTab('trasportare')" id="btn-trasportare" class="tab-btn tab-btn-lime pb-4 px-6 text-lg font-semibold text-gray-500 hover:text-brand-lime">
+                        🚗 Voglio Trasportare
+                    </button>
+                </div>
+            </div>
+
+            <!-- CONTENT SPEDIRE -->
+            <div id="content-spedire" class="tab-content active">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="space-y-8">
+                        <div class="flex gap-4">
+                            <!-- Beige/Orange tint circle -->
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-orange-100 text-brand-brown flex items-center justify-center text-xl font-bold">1</div>
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900">Inserisci la richiesta</h3>
+                                <p class="text-gray-600 mt-2">Descrivi cosa devi spedire, le dimensioni e dove deve arrivare. È gratuito e veloce.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-orange-100 text-brand-brown flex items-center justify-center text-xl font-bold">2</div>
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900">Scegli il Driver</h3>
+                                <p class="text-gray-600 mt-2">Chatta con i trasportatori che fanno quella tratta, controlla i loro feedback e accordati sul prezzo.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-orange-100 text-brand-brown flex items-center justify-center text-xl font-bold">3</div>
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900">Spedisci e Risparmia</h3>
+                                <p class="text-gray-600 mt-2">Affida il pacco. Il pagamento è sicuro e viene rilasciato solo a consegna avvenuta.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="pt-4">
+                            <h4 class="font-semibold text-gray-900 mb-3">I vantaggi per chi spedisce:</h4>
+                            <div class="flex gap-4 text-sm text-gray-600">
+                                <span class="flex items-center gap-2 bg-gray-50 px-3 py-1 rounded-full border"><i class="fas fa-bolt text-yellow-500"></i> Più Veloce</span>
+                                <span class="flex items-center gap-2 bg-gray-50 px-3 py-1 rounded-full border"><i class="fas fa-piggy-bank text-brand-brown"></i> -30% Costi</span>
+                                <span class="flex items-center gap-2 bg-gray-50 px-3 py-1 rounded-full border"><i class="fas fa-leaf text-green-500"></i> Eco-Friendly</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-orange-50 rounded-3xl p-8 border border-orange-100 text-center">
+                        <img src="https://static.wixstatic.com/media/abf7fb_60174e0167494158807cfdf3b3e9e254~mv2.png" alt="Box" class="w-48 h-auto mx-auto mb-6 drop-shadow-xl transform hover:scale-110 transition duration-500">
+                        <h3 class="text-2xl font-bold text-brand-brown mb-2">Spedizioni Smart</h3>
+                        <p class="text-gray-600 mb-6">Dimentica i costi fissi dei corrieri. Scegli la sharing economy.</p>
+                        <a href="https://web.siwego.com/tabs/send" onclick="gtag('event', 'spedisci_con_siwego_2')" class="inline-block bg-brand-brown text-white px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition">Trova un trasporto</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTENT TRASPORTARE -->
+            <div id="content-trasportare" class="tab-content">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="space-y-8">
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-lime-100 text-brand-lime flex items-center justify-center text-xl font-bold">1</div>
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900">Inserisci il tuo viaggio</h3>
+                                <p class="text-gray-600 mt-2">Dicci dove stai andando, quando parti e quanto spazio libero hai nel bagagliaio.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-lime-100 text-brand-lime flex items-center justify-center text-xl font-bold">2</div>
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900">Trova Pacchi</h3>
+                                <p class="text-gray-600 mt-2">Il sistema ti mostrerà le richieste di spedizione perfettamente compatibili con la tua strada.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-lime-100 text-brand-lime flex items-center justify-center text-xl font-bold">3</div>
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900">Consegna e Guadagna</h3>
+                                <p class="text-gray-600 mt-2">Ritira la merce, consegnala a destinazione e ricevi subito il rimborso spese concordato.</p>
+                            </div>
+                        </div>
+
+                        <div class="pt-4">
+                            <h4 class="font-semibold text-gray-900 mb-3">Perché diventare Driver?</h4>
+                            <div class="flex gap-4 text-sm text-gray-600 flex-wrap">
+                                <span class="flex items-center gap-2 bg-gray-50 px-3 py-1 rounded-full border"><i class="fas fa-wallet text-brand-lime"></i> Rimborsi Spese</span>
+                                <span class="flex items-center gap-2 bg-gray-50 px-3 py-1 rounded-full border"><i class="fas fa-route text-gray-500"></i> Nessuna Deviazione</span>
+                                <span class="flex items-center gap-2 bg-gray-50 px-3 py-1 rounded-full border"><i class="fas fa-users text-blue-500"></i> Community</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-lime-50 rounded-3xl p-8 border border-lime-200 text-center">
+                        <img src="https://static.wixstatic.com/media/abf7fb_bbe4533fc1164764b24a5d79a1515185~mv2.png" alt="Truck" class="w-48 h-auto mx-auto mb-6 drop-shadow-xl transform hover:scale-110 transition duration-500">
+                        <h3 class="text-2xl font-bold text-brand-lime mb-2">Viaggia a costo zero</h3>
+                        <p class="text-gray-600 mb-6">Ripagati benzina e autostrada semplicemente portando un pacco con te.</p>
+                        <a href="https://web.siwego.com/carry" onclick="gtag('event', 'offri_un_trasporto_2')" class="inline-block bg-brand-lime text-white px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition">Offri passaggio</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DOWNLOAD APP SECTION (Updated Background & Phone Image) -->
+    <section class="py-20 relative overflow-hidden bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <!-- Background: Elegant Gray (bg-gray-100) -->
+            <div class="bg-gray-100 rounded-3xl p-8 md:p-16 text-gray-900 shadow-xl overflow-hidden relative border border-gray-200">
+                
+                <!-- Decorative Blobs (Subtle) -->
+                <div class="absolute top-0 right-0 -mt-20 -mr-20 w-80 h-80 bg-brand-brown opacity-10 rounded-full blur-3xl"></div>
+                <div class="absolute bottom-0 left-0 -mb-20 -ml-20 w-80 h-80 bg-brand-lime opacity-10 rounded-full blur-3xl"></div>
+
+                <div class="grid md:grid-cols-2 gap-12 items-center relative z-10">
+                    <div>
+                        <div class="inline-block px-4 py-1.5 mb-6 text-xs font-bold tracking-wider uppercase bg-white rounded-full border border-gray-200 text-brand-brown shadow-sm">
+                            Disponibile ora
+                        </div>
+                        <h2 class="text-4xl md:text-5xl font-extrabold mb-6 leading-tight text-gray-900">
+                            Porta SiWeGO<br>sempre con te.
+                        </h2>
+                        <p class="text-lg text-gray-600 mb-8 leading-relaxed max-w-lg">
+                            Gestisci le tue spedizioni e i tuoi viaggi direttamente dal tuo smartphone. 
+                            Ricevi notifiche in tempo reale, chatta con gli altri utenti e traccia i tuoi pacchi in un tocco.
+                        </p>
+                        
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <!-- Apple Store: Black -->
+                            <a href="https://apps.apple.com/it/app/siwego/id1483064253" onclick="gtag('event', 'click_apple_store')" class="flex items-center gap-3 bg-black text-white px-5 py-3 rounded-xl hover:bg-gray-800 transition shadow-lg transform hover:-translate-y-1 w-fit">
+                                <i class="fab fa-apple text-3xl"></i>
+                                <div class="text-left leading-none">
+                                    <div class="text-[10px] uppercase tracking-wider opacity-80">Scarica su</div>
+                                    <div class="font-bold text-lg">App Store</div>
+                                </div>
+                            </a>
+                            <!-- Google Play: Black (updated from white) -->
+                            <a href="https://play.google.com/store/apps/details?id=it.siwego.clientapp&hl=it" onclick="gtag('event', 'click_google_store')" class="flex items-center gap-3 bg-black text-white px-5 py-3 rounded-xl hover:bg-gray-800 transition shadow-lg transform hover:-translate-y-1 w-fit">
+                                <i class="fab fa-google-play text-3xl text-white"></i>
+                                <div class="text-left leading-none">
+                                    <div class="text-[10px] uppercase tracking-wider opacity-80">DISPONIBILE SU</div>
+                                    <div class="font-bold text-lg">Google Play</div>
+                                </div>
+                            </a>
+                        </div>
+                        
+                        <div class="mt-8 flex items-center gap-2 text-sm text-gray-500">
+                            <div class="flex gap-0.5">
+                                <i class="fas fa-star text-brand-lime"></i>
+                                <i class="fas fa-star text-brand-lime"></i>
+                                <i class="fas fa-star text-brand-lime"></i>
+                                <i class="fas fa-star text-brand-lime"></i>
+                                <i class="fas fa-star text-brand-lime"></i>
+                            </div>
+                            <span class="ml-2 font-medium">4.8/5 dai nostri utenti</span>
+                        </div>
+                    </div>
+
+                    <div class="relative hidden md:block">
+                        <!-- Mockup Phone Frame with Image -->
+                        <div class="relative mx-auto border-gray-900 bg-gray-900 border-[12px] rounded-[3rem] h-[540px] w-[300px] shadow-2xl">
+                            <!-- Camera Notch -->
+                            <div class="w-[120px] h-[24px] bg-gray-900 top-0 rounded-b-[1rem] left-1/2 -translate-x-1/2 absolute z-20"></div>
+                            
+                            <!-- Screen Content -->
+                            <div class="rounded-[2.4rem] overflow-hidden w-full h-full bg-black relative">
+                                <!-- ========================================================================= -->
+                                <!-- INSERISCI QUI IL NOME DELLA TUA IMMAGINE -->
+                                <!-- Esempio: src="mia_schermata.jpg" (se nella stessa cartella) -->
+                                <!-- ========================================================================= -->
+                                <img src="https://via.placeholder.com/300x600?text=App+Screenshot" alt="SiWeGO App Screen" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEZIONE "PERCHÉ ESISTE SIWEGO" -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Perché esiste SiWeGO?</h2>
+                <p class="text-lg text-gray-600">I numeri parlano chiaro. Risolviamo i problemi della logistica moderna.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <div class="bento-card bg-orange-50 group cursor-pointer border hover:border-brand-brown">
+                    <div class="google-card-bg"></div>
+                    <div class="relative z-10 flex flex-col justify-between h-full">
+                        <div class="flex justify-between items-start">
+                            <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center text-brand-brown shadow-md icon-float shadow-orange-100">
+                                <i class="fas fa-chart-pie text-3xl"></i>
+                            </div>
+                            <div class="text-5xl font-extrabold text-brand-brown tracking-tight group-hover:scale-110 transition-transform">25%</div>
+                        </div>
+                        <div class="mt-6">
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">Spreco di Spazio</h3>
+                            <p class="text-sm text-gray-600">Dei mezzi di trasporto viaggia vuoto. Oltre 1.1 Milioni di veicoli generano traffico senza trasportare nulla.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bento-card bg-lime-50 border border-brand-lime/20 hover:border-brand-lime group cursor-pointer">
+                    <div class="google-card-bg bg-gradient-to-b from-white to-transparent"></div>
+                    <div class="relative z-10 flex flex-col justify-between h-full">
+                        <div class="flex justify-between items-start">
+                            <div class="w-16 h-16 bg-brand-lime rounded-full flex items-center justify-center text-white shadow-md icon-float shadow-lime-200">
+                                <i class="fas fa-leaf text-3xl"></i>
+                            </div>
+                            <div class="text-4xl font-extrabold text-brand-lime tracking-tight group-hover:scale-110 transition-transform">1.5 Mld</div>
+                        </div>
+                        <div class="mt-6">
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">Impatto Ambientale</h3>
+                            <p class="text-sm text-gray-600">Litri di carburante bruciati inutilmente ogni anno, generando enormi quantità di CO2.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bento-card bg-orange-50 border border-brand-brown/20 hover:border-brand-brown group cursor-pointer">
+                    <div class="google-card-bg bg-gradient-to-b from-white to-transparent"></div>
+                    <div class="relative z-10 flex flex-col justify-between h-full">
+                        <div class="flex justify-between items-start">
+                            <div class="w-16 h-16 bg-brand-brown rounded-full flex items-center justify-center text-white shadow-md icon-float shadow-orange-200">
+                                <i class="fas fa-car-crash text-3xl"></i>
+                            </div>
+                            <div class="text-4xl font-extrabold text-brand-brown tracking-tight group-hover:scale-110 transition-transform">10k Km</div>
+                        </div>
+                        <div class="mt-6">
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">Traffico & Rischi</h3>
+                            <p class="text-sm text-gray-600">Di coda generata da veicoli vuoti. Più auto significano più traffico e più incidenti stradali.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-20 bg-gray-50" id="faq">
+        <div class="max-w-3xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Domande Frequenti</h2>
+            
+            <div class="space-y-3">
+                <details class="group bg-white rounded-lg border border-gray-200 overflow-hidden">
+                    <summary class="flex justify-between items-center p-4 cursor-pointer font-medium text-gray-900 hover:bg-gray-50 transition select-none">
+                        Come funziona il pagamento e il rimborso spese?
+                        <span class="text-gray-400 transition-transform group-open:rotate-180"><i class="fas fa-chevron-down"></i></span>
+                    </summary>
+                    <div class="px-4 pb-4 text-gray-600 text-sm leading-relaxed border-t border-gray-100 pt-3">
+                        Il pagamento avviene tramite app ed è congelato fino alla consegna. Il "prezzo" è un rimborso spese condiviso, calcolato in base ai costi chilometrici ACI, rendendo il trasporto economico e legale tra privati.
+                    </div>
+                </details>
+
+                <details class="group bg-white rounded-lg border border-gray-200 overflow-hidden">
+                    <summary class="flex justify-between items-center p-4 cursor-pointer font-medium text-gray-900 hover:bg-gray-50 transition select-none">
+                        È legale trasportare merci per conto terzi?
+                        <span class="text-gray-400 transition-transform group-open:rotate-180"><i class="fas fa-chevron-down"></i></span>
+                    </summary>
+                    <div class="px-4 pb-4 text-gray-600 text-sm leading-relaxed border-t border-gray-100 pt-3">
+                        Assolutamente sì, se fatto in modalità "sharing economy". Non stai facendo il corriere per professione, ma stai condividendo un viaggio che avresti comunque fatto, ricevendo un contributo spese. Questo rientra nella piena legalità della sharing economy italiana.
+                    </div>
+                </details>
+
+                <details class="group bg-white rounded-lg border border-gray-200 overflow-hidden">
+                    <summary class="flex justify-between items-center p-4 cursor-pointer font-medium text-gray-900 hover:bg-gray-50 transition select-none">
+                        Come garantite la sicurezza del mio pacco?
+                        <span class="text-gray-400 transition-transform group-open:rotate-180"><i class="fas fa-chevron-down"></i></span>
+                    </summary>
+                    <div class="px-4 pb-4 text-gray-600 text-sm leading-relaxed border-t border-gray-100 pt-3">
+                        Tutti i driver sono verificati tramite documenti e numero di telefono. Inoltre, ogni trasporto include un codice di sblocco pagamento che garantisce che il denaro arrivi al driver solo a merce ricevuta.
+                    </div>
+                </details>
+
+                 <details class="group bg-white rounded-lg border border-gray-200 overflow-hidden">
+                    <summary class="flex justify-between items-center p-4 cursor-pointer font-medium text-gray-900 hover:bg-gray-50 transition select-none">
+                        Posso annullare una richiesta o un'offerta?
+                        <span class="text-gray-400 transition-transform group-open:rotate-180"><i class="fas fa-chevron-down"></i></span>
+                    </summary>
+                    <div class="px-4 pb-4 text-gray-600 text-sm leading-relaxed border-t border-gray-100 pt-3">
+                        Sì, puoi annullare il trasporto prima che inizi. Se l'annullamento avviene con sufficiente anticipo non ci sono penali. Controlla i termini e condizioni per le politiche di cancellazione specifiche dell'ultimo minuto.
+                    </div>
+                </details>
+
+                <details class="group bg-white rounded-lg border border-gray-200 overflow-hidden">
+                    <summary class="flex justify-between items-center p-4 cursor-pointer font-medium text-gray-900 hover:bg-gray-50 transition select-none">
+                        Chi emette la ricevuta?
+                        <span class="text-gray-400 transition-transform group-open:rotate-180"><i class="fas fa-chevron-down"></i></span>
+                    </summary>
+                    <div class="px-4 pb-4 text-gray-600 text-sm leading-relaxed border-t border-gray-100 pt-3">
+                        SiWeGO emette una ricevuta per la commissione del servizio. Per quanto riguarda il rimborso spese tra privati, non essendo una prestazione professionale, non è prevista fattura ma una semplice ricevuta di rimborso spese che l'app genera automaticamente.
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- REDUCED CONTACT SECTION -->
+    <section class="py-10 bg-white border-t border-gray-100">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <!-- Smaller typography and minimal design -->
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Hai ancora dubbi?</h3>
+            <p class="text-sm text-gray-500 mb-4 max-w-lg mx-auto">
+                Se non hai trovato la risposta nelle FAQ, il nostro team è a tua disposizione.
+            </p>
+            <!-- Minimal "Ghost" Button -->
+            <a href="mailto:info@siwego.com" onclick="gtag('event', 'ads_conversion_Contattaci_1')" class="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-gray-200 text-gray-500 text-sm font-medium hover:bg-gray-50 hover:text-gray-800 transition">
+                <i class="far fa-envelope"></i> Scrivici una mail
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                <!-- Colonna 1: Info Aziendali -->
+                <div>
+                    <div class="mb-6">
+                        <img src="https://digithon.s3.eu-central-1.amazonaws.com/1622/649d9c9a896d1_logo_registered_siwego___1_.png" alt="SiWeGO Logo" class="h-10 w-auto object-contain">
+                    </div>
+                    <p class="text-xs text-gray-500 mb-4">
+                        Sede Legale:<br>
+                        Progetto Manifattura<br>
+                        Piazza Manifattura, 1<br>
+                        38068 Rovereto (TN)
+                    </p>
+                </div>
+
+                <!-- Colonna 2: Supporto -->
+                <div>
+                    <h4 class="font-bold text-sm text-gray-900 mb-4">Supporto</h4>
+                    <ul class="space-y-2 text-sm text-gray-500">
+                        <li><a href="#faq" class="hover:text-brand-brown">FAQ</a></li>
+                        <!-- Tracking: ads_conversion_Contattaci_1 -->
+                        <li><a href="mailto:info@siwego.com" onclick="gtag('event', 'ads_conversion_Contattaci_1')" class="hover:text-brand-brown">Contatti</a></li>
+                        <li><a href="https://www.siwego.com/termini-e-condizioni" class="hover:text-brand-brown">Termini e Condizioni</a></li>
+                        <li><a href="https://www.siwego.com/privacy-policy" class="hover:text-brand-brown">Privacy Policy</a></li>
+                    </ul>
+                </div>
+
+                <!-- Colonna 3: Social e Download -->
+                <div>
+                    <h4 class="font-bold text-sm text-gray-900 mb-4">Seguici</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-gray-500 hover:bg-brand-lime hover:text-white transition"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-gray-500 hover:bg-brand-lime hover:text-white transition"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-gray-500 hover:bg-brand-lime hover:text-white transition"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-gray-500 hover:bg-brand-lime hover:text-white transition"><i class="fab fa-youtube"></i></a>
+                    </div>
+                    
+                    <div class="mt-8">
+                        <h4 class="font-bold text-sm text-gray-900 mb-3">Scarica l'App</h4>
+                        <div class="flex flex-col gap-2">
+                            <!-- Tracking: click_apple_store -->
+                            <a href="https://apps.apple.com/it/app/siwego/id1483064253" onclick="gtag('event', 'click_apple_store')" class="bg-black text-white px-4 py-2 rounded-lg text-xs flex items-center gap-2 hover:bg-gray-800 transition w-fit">
+                                <i class="fab fa-apple text-lg"></i> 
+                                <div class="text-left leading-none">
+                                    <div class="text-[9px] uppercase">Scarica su</div>
+                                    <div class="font-bold text-sm">App Store</div>
+                                </div>
+                            </a>
+                            <!-- Tracking: click_google_store -->
+                            <a href="https://play.google.com/store/apps/details?id=it.siwego.clientapp&hl=it" onclick="gtag('event', 'click_google_store')" class="bg-black text-white px-4 py-2 rounded-lg text-xs flex items-center gap-2 hover:bg-gray-800 transition w-fit">
+                                <i class="fab fa-google-play text-lg"></i>
+                                <div class="text-left leading-none">
+                                    <div class="text-[9px] uppercase">Disponibile su</div>
+                                    <div class="font-bold text-sm">Google Play</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-100 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-400">
+                <p>&copy; 2024 SiWeGO S.r.l. Tutti i diritti riservati. P.IVA 02442620227</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Tab Script
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            document.getElementById('content-' + tabName).classList.add('active');
+            document.getElementById('btn-' + tabName).classList.add('active');
+        }
+    </script>
+
+</body>
+</html>
