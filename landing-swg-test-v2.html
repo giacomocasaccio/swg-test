@@ -6,15 +6,24 @@
     <title>SiWeGO - Spedizioni Condivise</title>
     
     <!-- ========================================== -->
-    <!-- GOOGLE ANALYTICS 4 (GA4) SETUP -->
+    <!-- GOOGLE ANALYTICS 4 (GA4) SETUP + CONSENT MODE -->
     <!-- ID Property dedicata: Landing Promo App -->
     <!-- ========================================== -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-NPSLJXPKY2"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+      
+      // 1. Impostazione Default Consent Mode (Negato di default)
+      gtag('consent', 'default', {
+        'ad_storage': 'denied',
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied',
+        'analytics_storage': 'denied',
+        'wait_for_update': 500
+      });
 
+      gtag('js', new Date());
       gtag('config', 'G-NPSLJXPKY2'); 
     </script>
     <!-- ========================================== -->
@@ -159,6 +168,59 @@
         .material-symbols-outlined {
             vertical-align: middle;
             font-size: 1.25rem;
+        }
+
+        /* --- STILI COOKIE BANNER --- */
+        .cookie-toggle-checkbox:checked {
+            right: 0;
+            border-color: var(--siwego-lime);
+        }
+        .cookie-toggle-checkbox:checked + .cookie-toggle-label {
+            background-color: var(--siwego-lime);
+        }
+        .cookie-toggle-checkbox:checked + .cookie-toggle-label:before {
+            transform: translateX(100%);
+        }
+        
+        .toggle-checkbox {
+            appearance: none;
+            display: none;
+        }
+        .toggle-label {
+            position: relative;
+            display: block;
+            width: 44px;
+            height: 24px;
+            background-color: #e5e7eb;
+            border-radius: 9999px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .toggle-label:before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: var(--siwego-lime);
+        }
+        .toggle-checkbox:checked + .toggle-label:before {
+            transform: translateX(20px);
+        }
+        .toggle-checkbox:disabled + .toggle-label {
+            opacity: 0.6;
+            cursor: not-allowed;
+            background-color: #d1d5db;
+        }
+        .toggle-checkbox:checked:disabled + .toggle-label {
+            background-color: var(--siwego-brown);
         }
     </style>
 </head>
@@ -677,8 +739,100 @@
         </div>
     </footer>
 
+    <!-- ========================================== -->
+    <!-- COOKIE BANNER COMPONENT -->
+    <!-- ========================================== -->
+    
+    <!-- BANNER (Barra fissa in basso) -->
+    <div id="cookie-banner" class="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] p-4 md:p-6 hidden">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="text-sm text-gray-600 md:max-w-3xl">
+                <p class="font-bold text-gray-900 mb-1">🍪 Informativa sui Cookie</p>
+                <p>
+                    Utilizziamo cookie per migliorare la tua esperienza, analizzare il traffico e personalizzare gli annunci. 
+                    Puoi accettare tutti i cookie, rifiutarli o gestire le tue preferenze. 
+                    Per maggiori informazioni, consulta la nostra <a href="#" class="text-brand-brown hover:underline">Privacy Policy</a>.
+                </p>
+            </div>
+            <div class="flex flex-wrap gap-3 w-full md:w-auto justify-center md:justify-end items-center">
+                <button id="cookie-customize" class="px-3 py-1.5 rounded-lg text-gray-500 hover:text-gray-900 hover:bg-gray-50 text-xs font-medium transition border border-transparent hover:border-gray-200">
+                    Personalizza
+                </button>
+                <button id="cookie-reject-all" class="px-3 py-1.5 rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-50 text-xs font-medium transition">
+                    Rifiuta
+                </button>
+                <button id="cookie-accept-all" class="bg-gray-200 hover:bg-gray-300 text-gray-900 px-5 py-2 rounded-lg text-sm font-bold shadow-sm transition">
+                    Accetta Tutti
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL (Personalizzazione Preferenze) -->
+    <div id="cookie-settings-modal" class="fixed inset-0 z-[60] hidden">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" id="cookie-modal-backdrop"></div>
+        
+        <!-- Modal Content -->
+        <div class="relative w-full max-w-lg mx-auto mt-20 md:mt-32 bg-white rounded-2xl shadow-2xl p-6 md:p-8 m-4 max-h-[90vh] overflow-y-auto">
+            <button id="cookie-modal-close" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+            
+            <div class="text-center mb-6">
+                <h3 class="text-2xl font-bold text-gray-900">Preferenze Cookie</h3>
+                <p class="text-gray-500 text-sm mt-2">Gestisci le tue preferenze di consenso per le diverse categorie di cookie.</p>
+            </div>
+
+            <div class="space-y-4">
+                <!-- NECESSARI -->
+                <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl border border-gray-100">
+                    <div>
+                        <h4 class="font-bold text-gray-900 text-sm">Tecnici / Necessari</h4>
+                        <p class="text-xs text-gray-500 mt-1">Essenziali per il funzionamento del sito.</p>
+                    </div>
+                    <div class="relative">
+                        <input type="checkbox" checked disabled class="toggle-checkbox" id="consent-necessary">
+                        <label for="consent-necessary" class="toggle-label"></label>
+                    </div>
+                </div>
+
+                <!-- ANALITICI -->
+                <div class="flex items-center justify-between p-4 bg-white rounded-xl border border-gray-200">
+                    <div>
+                        <h4 class="font-bold text-gray-900 text-sm">Analitici</h4>
+                        <p class="text-xs text-gray-500 mt-1">Per capire come gli utenti usano il sito.</p>
+                    </div>
+                    <div class="relative">
+                        <input type="checkbox" class="toggle-checkbox cookie-toggle-checkbox" id="consent-analytics">
+                        <label for="consent-analytics" class="toggle-label cookie-toggle-label"></label>
+                    </div>
+                </div>
+
+                <!-- MARKETING -->
+                <div class="flex items-center justify-between p-4 bg-white rounded-xl border border-gray-200">
+                    <div>
+                        <h4 class="font-bold text-gray-900 text-sm">Marketing</h4>
+                        <p class="text-xs text-gray-500 mt-1">Per mostrarti annunci pertinenti.</p>
+                    </div>
+                    <div class="relative">
+                        <input type="checkbox" class="toggle-checkbox cookie-toggle-checkbox" id="consent-marketing">
+                        <label for="consent-marketing" class="toggle-label cookie-toggle-label"></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 pt-6 border-t border-gray-100 flex gap-3">
+                <button id="cookie-save-preferences" class="flex-1 btn-lime px-4 py-3 rounded-xl text-sm font-bold shadow-md justify-center text-center">
+                    Salva Preferenze
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script Gestione Tab (Esistente) & Cookie Logic (Nuovo) -->
     <script>
-        // Tab Script
+        // --- 1. SCRIPT TAB ORIGINALE ---
         function switchTab(tabName) {
             document.querySelectorAll('.tab-content').forEach(content => {
                 content.classList.remove('active');
@@ -691,6 +845,91 @@
             document.getElementById('content-' + tabName).classList.add('active');
             document.getElementById('btn-' + tabName).classList.add('active');
         }
+
+        // --- 2. SCRIPT COOKIE BANNER ---
+        document.addEventListener("DOMContentLoaded", function() {
+            const banner = document.getElementById('cookie-banner');
+            const modal = document.getElementById('cookie-settings-modal');
+            const backdrop = document.getElementById('cookie-modal-backdrop');
+            const closeBtn = document.getElementById('cookie-modal-close');
+            
+            const btnAcceptAll = document.getElementById('cookie-accept-all');
+            const btnRejectAll = document.getElementById('cookie-reject-all');
+            const btnCustomize = document.getElementById('cookie-customize');
+            const btnSavePrefs = document.getElementById('cookie-save-preferences');
+            
+            const checkboxAnalytics = document.getElementById('consent-analytics');
+            const checkboxMarketing = document.getElementById('consent-marketing');
+
+            // Controlla se c'è già una scelta salvata
+            const savedConsent = localStorage.getItem('siwego_consent_choice');
+
+            if (!savedConsent) {
+                // Se non c'è scelta, mostra il banner
+                banner.classList.remove('hidden');
+            } else {
+                // Se c'è scelta, applica lo stato salvato a Google Consent Mode
+                const consentData = JSON.parse(savedConsent);
+                updateGtagConsent(consentData);
+            }
+
+            // Funzione per aggiornare GTAG
+            function updateGtagConsent(preferences) {
+                const consentMode = {
+                    'ad_storage': preferences.marketing ? 'granted' : 'denied',
+                    'ad_user_data': preferences.marketing ? 'granted' : 'denied',
+                    'ad_personalization': preferences.marketing ? 'granted' : 'denied',
+                    'analytics_storage': preferences.analytics ? 'granted' : 'denied'
+                };
+                
+                gtag('consent', 'update', consentMode);
+                console.log("Consent Mode Updated:", consentMode);
+                
+                // Salva scelta
+                localStorage.setItem('siwego_consent_choice', JSON.stringify(preferences));
+            }
+
+            // --- EVENT LISTENERS ---
+
+            // Accetta Tutto
+            btnAcceptAll.addEventListener('click', () => {
+                updateGtagConsent({ analytics: true, marketing: true });
+                banner.classList.add('hidden');
+            });
+
+            // Rifiuta Tutto
+            btnRejectAll.addEventListener('click', () => {
+                updateGtagConsent({ analytics: false, marketing: false });
+                banner.classList.add('hidden');
+            });
+
+            // Apri Modale
+            btnCustomize.addEventListener('click', () => {
+                modal.classList.remove('hidden');
+                // Pre-fill checkboxes based on current state (or false if new)
+                const saved = localStorage.getItem('siwego_consent_choice');
+                if (saved) {
+                    const parsed = JSON.parse(saved);
+                    checkboxAnalytics.checked = parsed.analytics;
+                    checkboxMarketing.checked = parsed.marketing;
+                }
+            });
+
+            // Chiudi Modale (senza salvare)
+            const closeModal = () => modal.classList.add('hidden');
+            closeBtn.addEventListener('click', closeModal);
+            backdrop.addEventListener('click', closeModal);
+
+            // Salva Preferenze dal Modale
+            btnSavePrefs.addEventListener('click', () => {
+                updateGtagConsent({
+                    analytics: checkboxAnalytics.checked,
+                    marketing: checkboxMarketing.checked
+                });
+                modal.classList.add('hidden');
+                banner.classList.add('hidden');
+            });
+        });
     </script>
 
 </body>
