@@ -538,11 +538,17 @@
                     </div>
 
                     <div class="relative hidden md:block">
-                        <!-- Slider Immagini (Senza Telefono Mockup) -->
-                        <div class="relative mx-auto h-[540px] w-[300px] shadow-2xl rounded-[1.5rem] overflow-hidden bg-white">
-                            <img src="https://promo.siwego.com/img/Screen_App_iOS_SiWeGo.jpg" alt="SiWeGO App Screen 1" class="app-screenshot">
-                            <img src="https://promo.siwego.com/img/Screen_App_iOS_SiWeGo_1.jpg" alt="SiWeGO App Screen 2" class="app-screenshot">
-                            <img src="https://promo.siwego.com/img/Screen_App_iOS_SiWeGo_2.jpg" alt="SiWeGO App Screen 3" class="app-screenshot">
+                        <!-- Mockup Phone Frame (Proporzioni esatte calcolate per 460x996) -->
+                        <div class="relative mx-auto border-gray-900 bg-gray-900 border-[12px] rounded-[2.5rem] shadow-2xl" style="width: 300px; height: 622px;">
+                            <!-- Notch per effetto telefono -->
+                            <div class="w-[100px] h-[18px] bg-gray-900 top-0 rounded-b-[1rem] left-1/2 -translate-x-1/2 absolute z-20"></div>
+                            
+                            <!-- Schermo interno proporzione perfetta -->
+                            <div class="rounded-[1.8rem] overflow-hidden w-full h-full bg-black relative">
+                                <img src="https://promo.siwego.com/img/Screen_App_iOS_SiWeGo.jpg" alt="SiWeGO App Screen 1" class="app-screenshot">
+                                <img src="https://promo.siwego.com/img/Screen_App_iOS_SiWeGo_1.jpg" alt="SiWeGO App Screen 2" class="app-screenshot">
+                                <img src="https://promo.siwego.com/img/Screen_App_iOS_SiWeGo_2.jpg" alt="SiWeGO App Screen 3" class="app-screenshot">
+                            </div>
                         </div>
                     </div>
                 </div>
