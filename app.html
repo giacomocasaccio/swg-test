@@ -222,6 +222,29 @@
         .toggle-checkbox:checked:disabled + .toggle-label {
             background-color: var(--siwego-brown);
         }
+
+        /* --- STILI SLIDESHOW TELEFONO --- */
+        .app-screenshot {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            animation: phoneFade 12s infinite;
+        }
+        .app-screenshot:nth-child(1) { animation-delay: -1s; }
+        .app-screenshot:nth-child(2) { animation-delay: 3s; }
+        .app-screenshot:nth-child(3) { animation-delay: 7s; }
+
+        @keyframes phoneFade {
+            0% { opacity: 0; }
+            8.33% { opacity: 1; }
+            33.33% { opacity: 1; }
+            41.66% { opacity: 0; }
+            100% { opacity: 0; }
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -519,7 +542,9 @@
                         <div class="relative mx-auto border-gray-900 bg-gray-900 border-[12px] rounded-[3rem] h-[540px] w-[300px] shadow-2xl">
                             <div class="w-[120px] h-[24px] bg-gray-900 top-0 rounded-b-[1rem] left-1/2 -translate-x-1/2 absolute z-20"></div>
                             <div class="rounded-[2.4rem] overflow-hidden w-full h-full bg-black relative">
-                                <img src="https://via.placeholder.com/300x600?text=App+Screenshot" alt="SiWeGO App Screen" class="w-full h-full object-cover">
+                                <img src="https://promo.siwego.com/img/Screen_App_iOS_SiWeGo.jpg" alt="SiWeGO App Screen 1" class="app-screenshot">
+                                <img src="https://promo.siwego.com/img/Screen_App_iOS_SiWeGo_1.jpg" alt="SiWeGO App Screen 2" class="app-screenshot">
+                                <img src="https://promo.siwego.com/img/Screen_App_iOS_SiWeGo_2.jpg" alt="SiWeGO App Screen 3" class="app-screenshot">
                             </div>
                         </div>
                     </div>
